@@ -1,0 +1,41 @@
+--- a/src/main.cpp.orig	2010-07-03 12:10:22.000000000 +0400
++++ b/src/main.cpp	2011-03-09 17:47:05.031527001 +0300
+@@ -974,36 +974,8 @@
+ 		if(is_gui_mode() && !cmd_options.only_pass)
+ 		{
+ 			// Определяем, являемся ли мы хозяином сессии -->
+-				switch(dbus_connection->request_name(dbus_name.c_str(), DBUS_NAME_FLAG_DO_NOT_QUEUE))
+-				{
+-					case DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER:
+-						is_owner = true;
+-						break;
+-
+-					case DBUS_REQUEST_NAME_REPLY_EXISTS:
+-						break;
+-
+-					case DBUS_REQUEST_NAME_REPLY_IN_QUEUE:
+-						MLIB_W(
+-							_("Unexpected DBus behavior"),
+-							_("Name request has been added to queue, but queuing has been forbidden.")
+-						);
+-						break;
+-
+-					case DBUS_REQUEST_NAME_REPLY_ALREADY_OWNER:
+-						MLIB_W(
+-							_("Unexpected DBus behavior while requesting name"),
+-							_("DBus saying that application is already name owner, but name request has not been sent yet.")
+-						);
+-						break;
+-
+-					default:
+-						MLIB_W(
+-							_("Unexpected DBus behavior while requesting name"),
+-							_("Unknown reply has been gotten.")
+-						);
+-						break;
+-				}
++			dbus_connection->request_name(dbus_name.c_str(), DBUS_NAME_FLAG_DO_NOT_QUEUE);
++ 			is_owner = true;
+ 			// Определяем, являемся ли мы хозяином сессии <--
+ 		}
+ 		else

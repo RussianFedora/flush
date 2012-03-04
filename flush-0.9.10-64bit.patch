@@ -1,0 +1,33 @@
+From 12a503ee42f956fa8a32e8f64561e1165a01f972 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dan=20Hor=C3=A1k?= <dan@danny.cz>
+Date: Fri, 24 Dec 2010 19:05:47 +0100
+Subject: [PATCH] accept also non-x86 64-bit architectures
+
+---
+ m4/ax_boost_base.m4 |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/m4/ax_boost_base.m4 b/m4/ax_boost_base.m4
+index ec23a0a..c5b6812 100644
+--- a/m4/ax_boost_base.m4
++++ b/m4/ax_boost_base.m4
+@@ -84,13 +84,14 @@ if test "x$want_boost" = "xyes"; then
+     AC_MSG_CHECKING(for boostlib >= $boost_lib_version_req)
+     succeeded=no
+ 
+-    dnl On x86_64 systems check for system libraries in both lib64 and lib.
++    dnl On 64-bit systems check for system libraries in both lib64 and lib.
+     dnl The former is specified by FHS, but e.g. Debian does not adhere to
+     dnl this (as it rises problems for generic multi-arch support).
+     dnl The last entry in the list is chosen by default when no libraries
+     dnl are found, e.g. when only header-only libraries are installed!
+     libsubdirs="lib"
+-    if test `uname -m` = x86_64; then
++    ax_arch=`uname -m`
++    if test $ax_arch = x86_64 -o $ax_arch = ppc64 -o $ax_arch = s390x -o $ax_arch = sparc64; then
+         libsubdirs="lib64 lib lib64"
+     fi
+ 
+-- 
+1.7.3.4
+

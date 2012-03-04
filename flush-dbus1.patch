@@ -1,0 +1,35 @@
+--- a/configure.ac.orig 2011-03-05 17:44:34.000000000 +0300
++++ b/configure.ac	2011-03-09 18:15:42.670527001 +0300
+@@ -182,16 +182,13 @@
+ 			APP_CPPFLAGS="$APP_CPPFLAGS $dbus_CFLAGS"
+ 			APP_LDADD="$APP_LDADD $dbus_LIBS"
+ 
+-			DBUSXX_CPPFLAGS='-I $(top_srcdir)/dbus-c++/include'
+-			DBUSXX_LIBRARIES='$(top_builddir)/dbus-c++/src/.libs/libdbus-c++-1.a'
+-			AC_SUBST([DBUSXX_XML2CPP], [['$(top_builddir)/dbus-c++/tools/dbusxx-xml2cpp']])
+-
+-			APP_CPPFLAGS="$APP_CPPFLAGS $DBUSXX_CPPFLAGS"
+-			APP_DEPENDENCIES="$APP_DEPENDENCIES $DBUSXX_LIBRARIES"
+-			APP_LDADD="$APP_LDADD $DBUSXX_LIBRARIES"
+-
+-			MLIB_SET_CUSTOM_LIBRARY([[dbus_cxx]], [[$DBUSXX_CPPFLAGS]], [[$DBUSXX_LIBRARIES]])
+-		dnl DBus <--
++		dnl dbus-c++ -->
++		        PKG_CHECK_MODULES([dbus_cxx], [dbus-c++-1])
++		        APP_CPPFLAGS="$APP_CPPFLAGS $dbus_cxx_CFLAGS"
++		        APP_LDADD="$APP_LDADD $dbus_cxx_LIBS"
++		
++		        AC_SUBST([DBUSXX_XML2CPP], [['dbusxx-xml2cpp']])
++		dnl dbus-c++ <--
+ 
+ 		dnl Gettext
+ 		APP_LDADD="$APP_LDADD $LIBINTL"
+@@ -266,8 +263,6 @@
+ dnl Application flags <--
+ 
+ dnl Libraries inside of the package
+-PACKAGE_LIBRARIES_SUBDIRS="dbus-c++"
+-AC_CONFIG_SUBDIRS([dbus-c++])
+ AC_SUBST([PACKAGE_LIBRARIES_SUBDIRS])
+ 
+ dnl Summary report

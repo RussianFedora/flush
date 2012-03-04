@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Flush
+GenericName=BitTorrent client
+Comment=GTK-based BitTorrent client
+Exec=flush
+Icon=flush
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;P2P;
+MimeType=application/x-bittorrent;
